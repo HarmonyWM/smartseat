@@ -240,3 +240,115 @@ def remove_allocation(session_id, participant_id):
     sessions[session_id]["allocations"].remove(participant_id)
     del participant_session_map[participant_id]
     return jsonify({"message": "Allocation removed successfully"})
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/assign')
+def assign_page():
+    return render_template('assign.html')
+
+@app.route('/participants')
+def participants_page():
+    return render_template('participants.html')
+
+@app.route('/view')
+def view_page():
+    return render_template('view.html')
+
+# ============= STATIC FILES =============
+
+@app.route('/static/<path:filename>')
+def serve_static(filename):
+    return send_from_directory('static', filename)
+
+# ============= API ENDPOINTS =============
+
+@app.route('/api/sessions', methods=['GET'])
+def get_sessions():
+    sessions = storage.get_all_sessions()
+    return jsonify({'success': True, 'sessions': sessions})
+
+@app.route('/api/participants', methods=['GET'])
+def get_participants():
+    participants = storage.get_all_participants()
+    return jsonify({'success': True, 'participants': participants})
+
+@app.route('/api/allocate', methods=['POST'])
+def allocate():
+    data = request.json
+    result = allocation_service.assign_participant(
+        data.get('participant_id'),
+        data.get('participant_name'),
+        data.get('department'),
+        data.get('session_id')
+    )
+    return jsonify(result)
+
+@app.route('/api/reset', methods=['POST'])
+def reset():
+    storage.reset_allocations()
+    return jsonify({'success': True, 'message': 'System reset successfully'})
+
+@app.route('/api/stats', methods=['GET'])
+def get_stats():
+    sessions = storage.get_all_sessions()
+    participants = storage.get_all_participants()
+    allocations = storage.get_allocations()
+    
+    stats = {
+        'total_participants': len(participants),
+        'total_allocated': len(allocations),
+        'remaining_seats': sum(s['available_seats'] for s in sessions),
+        'remaining_participants': len(participants) - len(allocations),
+        'sessions': sessions
+    }
+    return jsonify({'success': True, 'stats': stats})
+
+@app.route('/api/allocations', methods=['GET'])
+def get_allocations():
+    allocations = storage.get_allocations()
+    allocation_list = []
+    for participant_id, alloc in allocations.items():
+        allocation_list.append({
+            'participant_id': participant_id,
+            'participant_name': alloc.get('participant_name', 'Unknown'),
+            'department': alloc.get('department', ''),
+            'session_id': alloc.get('session_id', ''),
+            'session_name': alloc.get('session_name', '')
+        })
+    return jsonify({'success': True, 'allocations': allocation_list, 'total': len(allocation_list)})
+
+# ============= PROGRAM NAMES API =============
+
+@app.route('/api/programs', methods=['GET'])
+def get_programs():
+    """Get all training programs with their names and time slots"""
+    programs = [
+        {
+            'id': 'morning',
+            'name': 'Leadership Excellence Program',
+            'time_slot': '09:00 - 10:30',
+            'capacity': 20,
+            'duration': '1.5 hours',
+            'description': 'Executive leadership and management training'
+        },
+        {
+            'id': 'midday',
+            'name': 'Technical Skills Workshop',
+            'time_slot': '11:00 - 12:30',
+            'capacity': 20,
+            'duration': '1.5 hours',
+            'description': 'Hands-on technical and software development training'
+        },
+        {
+            'id': 'afternoon',
+            'name': 'Team Collaboration Summit',
+            'time_slot': '13:00 - 14:30',
+            'capacity': 20,
+            'duration': '1.5 hours',
+            'description': 'Team building and collaboration strategies'
+        }
+    ]
+    return jsonify({'success': True, 'programs': programs})
