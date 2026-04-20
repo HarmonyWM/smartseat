@@ -3,6 +3,20 @@ from models import sessions, DEPT_SESSION_LIMITS, DEPT_PROGRAMS, participant_ses
 
 api = Blueprint("api", __name__)
 
+SEED_PARTICIPANTS = (
+    [(f"PA{i:03d}", f"Division A Participant {i}", "Division A") for i in range(1, 25)] +
+    [(f"PB{i:03d}", f"Division B Participant {i}", "Division B") for i in range(1, 19)] +
+    [(f"PC{i:03d}", f"Division C Participant {i}", "Division C") for i in range(1, 19)]
+)
+
+
+@api.route("/seed", methods=["POST"])
+def seed():
+    for pid, name, dept in SEED_PARTICIPANTS:
+        if pid not in participants:
+            participants[pid] = {"name": name, "department": dept}
+    return jsonify({"message": f"Seeded {len(participants)} participants"}), 201
+
 
 def bad_request(msg):
     return jsonify({"error": msg}), 400

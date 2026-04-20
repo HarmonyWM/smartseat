@@ -11,7 +11,7 @@ export class Data {
   http = inject(HttpClient);
 
   post<T>(uri: string, data: any): Observable<T> {
-    return this.http.post<T>(`${this.API_URL}/${uri}`, data);
+    return this.http.post<T>(`${this.API_URL}${uri}`, data);
   }
 
   get<T>(uri: string): Observable<T> {

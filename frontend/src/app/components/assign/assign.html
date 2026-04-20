@@ -2,17 +2,17 @@
   <h1>Assign Participant to Training Session</h1>
   <mat-form-field>
     <mat-label>Select Division</mat-label>
-    <mat-select [value]="selectDepartment">
+    <mat-select [(ngModel)]="selectDepartment" [ngModelOptions]="{standalone: true}" (ngModelChange)="openParticipants()">
       @for (division of divisions(); track division) {
-        <mat-option value="{division}" (click)="openParticipants()">{{ division }}</mat-option>
+        <mat-option [value]="division">{{ division }}</mat-option>
       }
     </mat-select>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Select Program</mat-label>
-    <mat-select [value]="">
+    <mat-select [(ngModel)]="selectedProgram" [ngModelOptions]="{standalone: true}">
       @for (program of programs(); track program) {
-        <mat-option value="one">{{ program.name }}</mat-option>
+        <mat-option [value]="program">{{ program.name }}</mat-option>
       }
     </mat-select>
   </mat-form-field>
@@ -21,25 +21,23 @@
     <input
       type="text"
       placeholder="Pick one"
-      aria-label="Number"
+      aria-label="Participant"
       matInput
       [matAutocomplete]="auto"
-      [disabled]="participantsDisabled()"
-      [formField]="assignmentForm.participant_Id"
+      [ngModelOptions]="{standalone: true}"
+      [(ngModel)]="selectedParticipant"
     />
-    <mat-autocomplete #auto="matAutocomplete">
-      @for (participant of participants(); track participant) {
-        <mat-option [value]="participant"
-          >{{ participant.name }} {{ participant.surname }}</mat-option
-        >
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayParticipant">
+      @for (participant of participants(); track participant.id) {
+        <mat-option [value]="participant">{{ participant.name }}</mat-option>
       }
     </mat-autocomplete>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Select Session</mat-label>
-    <mat-select [formField]="assignmentForm.session_Id">
-      @for (session of sessions(); track session) {
-        <mat-option value="one">{{ session.name }} - {{ session.timeslot }}</mat-option>
+    <mat-select [(ngModel)]="selectedSession" [ngModelOptions]="{standalone: true}">
+      @for (session of sessions(); track session.id) {
+        <mat-option [value]="session.id">{{ session.name }} - {{ session.time_slot }}</mat-option>
       }
     </mat-select>
   </mat-form-field>
