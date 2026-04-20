@@ -10,9 +10,9 @@
   </mat-form-field>
   <mat-form-field>
     <mat-label>Select Division</mat-label>
-    <mat-select [value]="">
+    <mat-select [value]="selectDepartment">
       @for (division of divisions(); track division) {
-        <mat-option value="one">{{ division.name }}</mat-option>
+        <mat-option value="{division}" (click)="openParticipants()">{{ division }}</mat-option>
       }
     </mat-select>
   </mat-form-field>
@@ -24,6 +24,8 @@
       aria-label="Number"
       matInput
       [matAutocomplete]="auto"
+      [disabled]="participantsDisabled()"
+      [formField]="assignmentForm.participant_Id"
     />
     <mat-autocomplete #auto="matAutocomplete">
       @for (participant of participants(); track participant) {
@@ -35,14 +37,14 @@
   </mat-form-field>
   <mat-form-field>
     <mat-label>Select Session</mat-label>
-    <mat-select [value]="">
-      @for (program of programs(); track program) {
-        <mat-option value="one">{{ program.name }}</mat-option>
+    <mat-select [formField]="assignmentForm.session_Id">
+      @for (session of sessions(); track session) {
+        <mat-option value="one">{{ session.name }} - {{ session.timeslot }}</mat-option>
       }
     </mat-select>
   </mat-form-field>
   <div class="example-button-row">
     <button matButton="outlined" type="button" (click)="onClose()">Cancel</button>
-    <button matButton="tonal" type="submit">Assign Employee</button>
+    <button matButton="tonal" type="submit" [disabled]="assignmentForm().invalid()">Assign Employee</button>
   </div>
 </form>
