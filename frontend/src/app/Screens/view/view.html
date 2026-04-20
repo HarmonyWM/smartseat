@@ -1,0 +1,36 @@
+<div class="container">
+
+  <!-- 🔹 Top Action Bar -->
+  <div class="top-bar">
+
+    <button routerLink="/create" class="btn create">
+      + Create Department
+    </button>
+
+    <button routerLink="/assign" class="btn assign">
+      Assign Participants
+    </button>
+
+  </div>
+
+  <h2>Departments Overview</h2>
+
+  <div class="card-grid">
+
+    <div class="card" *ngFor="let dept of departments">
+
+      <h3>{{ dept.name }}</h3>
+
+      <p><strong>Total Participants:</strong> {{ dept.totalParticipants }}</p>
+
+      <p><strong>Max per Session:</strong> {{ dept.maxPerSession }}</p>
+
+      <p class="remaining">
+        Remaining Seats: {{ getRemainingSeats(dept) }}
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
