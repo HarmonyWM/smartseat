@@ -7,6 +7,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { Data } from '../../services/data.service';
 
 @Component({
   selector: 'app-assign',
@@ -23,6 +24,7 @@ import { MatSelectModule } from '@angular/material/select';
 })
 export class Assign {
   dialogRef = inject(MatDialogRef<Assign>);
+  dataServices = inject(Data);
 
   assignment = signal<any>({}); // Adding assignment to session
   participants = signal<any[]>([]); // List of Participants filtered by Division
@@ -34,6 +36,15 @@ export class Assign {
   onClose() {
     this.dialogRef.close();
   }
-  
-  onSubmit() {}
+
+  onSubmit() {
+    this.dataServices.post("", this.assignment()).subscribe({
+      next: (res: any) => {
+        console.log(res);
+      },
+      error: (err: any) => {
+        console.log(err.error)
+      }
+    })
+  }
 }
