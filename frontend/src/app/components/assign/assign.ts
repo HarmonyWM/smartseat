@@ -7,9 +7,9 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { Data } from '../../services/data.service';
 import { divisions, sessions } from '../../utils/Hard-coded';
 import { assignment } from '../../utils/interface/assignment';
+import { Data } from '../../Services/data.service';
 
 @Component({
   selector: 'app-assign',

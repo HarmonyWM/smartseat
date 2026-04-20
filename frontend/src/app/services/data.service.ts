@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class Data {
-  API_URL = "http://localhost:5000/";
+  API_URL = "http://localhost:5000/api";
 
   http = inject(HttpClient);
 

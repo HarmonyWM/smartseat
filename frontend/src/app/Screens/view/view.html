@@ -1,59 +1,40 @@
 <div class="container">
-
   <!-- 🔹 Top Action Bar -->
   <div class="top-bar">
-
+    <!-- 
     <button routerLink="/create" class="btn create">
       + Create Department
-    </button>
+    </button> -->
 
-    <button routerLink="/assign" class="btn assign">
-      Assign Participants
-    </button>
-
+    <button (click)="openAssign()" class="btn assign">Assign Participants</button>
   </div>
 
   <h2>Training Programs</h2>
 
   <!-- 🔹 Training Programs -->
   <div class="program-grid">
-
     <div class="program-card" *ngFor="let program of trainingPrograms">
-
       <h3>{{ program.name }}</h3>
 
       <!-- 🔹 Sessions -->
       <div class="session-grid">
-
         <div class="session-card" *ngFor="let session of program.sessions">
-
           <h4>{{ session.name }}</h4>
 
           <p class="time">{{ session.time }}</p>
 
-          <p>
-            Capacity: {{ session.participants.length }} / {{ session.capacity }}
-          </p>
+          <p>Capacity: {{ session.participants.length }} / {{ session.capacity }}</p>
 
-          <p class="remaining">
-            Remaining Seats: {{ getRemainingSeats(session) }}
-          </p>
+          <p class="remaining">Remaining Seats: {{ getRemainingSeats(session) }}</p>
 
           <!-- 🔹 Participants -->
           <div class="participants">
-
             <span *ngFor="let p of session.participants" class="chip">
               {{ p }}
             </span>
-
           </div>
-
         </div>
-
       </div>
-
     </div>
-
   </div>
-
 </div>

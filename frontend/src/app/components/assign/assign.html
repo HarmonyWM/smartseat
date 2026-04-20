@@ -1,18 +1,18 @@
 <form (ngSubmit)="onSubmit()">
   <h1>Assign Participant to Training Session</h1>
   <mat-form-field>
-    <mat-label>Select Program</mat-label>
-    <mat-select [value]="">
-      @for (program of programs(); track program) {
-        <mat-option value="one">{{ program.name }}</mat-option>
-      }
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field>
     <mat-label>Select Division</mat-label>
     <mat-select [value]="selectDepartment">
       @for (division of divisions(); track division) {
         <mat-option value="{division}" (click)="openParticipants()">{{ division }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Select Program</mat-label>
+    <mat-select [value]="">
+      @for (program of programs(); track program) {
+        <mat-option value="one">{{ program.name }}</mat-option>
       }
     </mat-select>
   </mat-form-field>

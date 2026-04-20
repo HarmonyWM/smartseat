@@ -1,16 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { Assign } from '../../components/assign/assign';
 
 @Component({
   selector: 'app-view',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   templateUrl: './view.html',
   styleUrl: './view.css',
 })
 export class View {
-
+  dialog = inject(MatDialog);
   trainingPrograms = [
     {
       name: 'Program Name',
@@ -36,6 +38,12 @@ export class View {
       ]
     }
   ];
+
+  openAssign() {
+    this.dialog.open(Assign, {
+
+    });
+  }
 
   getRemainingSeats(session: any): number {
     return session.capacity - session.participants.length;
