@@ -15,7 +15,7 @@ export class View {
   dialog = inject(MatDialog);
   trainingPrograms = [
     {
-      name: 'Program Name',
+      name: 'Training Program X',
       sessions: [
         {
           name: 'Morning Session',

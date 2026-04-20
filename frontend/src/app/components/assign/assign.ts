@@ -10,6 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { divisions, sessions } from '../../utils/Hard-coded';
 import { assignment } from '../../utils/interface/assignment';
 import { Data } from '../../Services/data.service';
+import { SnackBar } from '../../Services/snack-bar.service';
 
 @Component({
   selector: 'app-assign',
@@ -34,12 +35,14 @@ export class Assign implements OnInit {
         console.log(res);
       },
       error: (err: any) => {
+        this.snackService.openSuccess("Invalid Operation. Already assigned to session!");
         console.log(err.error);
       },
     });
   }
   dialogRef = inject(MatDialogRef<Assign>);
   dataServices = inject(Data);
+  snackService = inject(SnackBar);
 
   assignment = signal<assignment>({
     participant_Id: "",
