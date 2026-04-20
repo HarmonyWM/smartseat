@@ -11,6 +11,13 @@ DEPT_SESSION_LIMITS = {
     "Division C": 6,
 }
 
+# Training program assigned to each department
+DEPT_PROGRAMS = {
+    "Division A": "Leadership Development",
+    "Division B": "Technical Skills",
+    "Division C": "Customer Service",
+}
+
 # participant_id -> session_id  (enforces one session per participant)
 participant_session_map = {}
 

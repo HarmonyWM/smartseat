@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from models import sessions, DEPT_SESSION_LIMITS, participant_session_map, participants
+from models import sessions, DEPT_SESSION_LIMITS, DEPT_PROGRAMS, participant_session_map, participants
 
 api = Blueprint("api", __name__)
 
@@ -52,7 +52,7 @@ def register_participant():
     if pid in participants:
         return jsonify({"error": "Participant already registered"}), 409
 
-    participants[pid] = {"name": name, "department": dept}
+    participants[pid] = {"name": name, "department": dept, "program": DEPT_PROGRAMS[dept]}
     return jsonify({"message": "Participant registered", "participant": participants[pid]}), 201
 
 
@@ -195,6 +195,7 @@ def session_detail(session_id):
         "available_seats": session["capacity"] - len(session["allocations"]),
         "department_breakdown": {
             dept: {
+                "program": DEPT_PROGRAMS[dept],
                 "allocated": dept_breakdown.get(dept, 0),
                 "limit": DEPT_SESSION_LIMITS[dept],
                 "remaining": DEPT_SESSION_LIMITS[dept] - dept_breakdown.get(dept, 0),
