@@ -1,0 +1,87 @@
+/* Container */
+form {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 24px;
+  border-radius: 12px;
+  background-color: #f4f8ff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  font-family: Arial, sans-serif;
+}
+
+/* Labels */
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #1a3c6e;
+}
+
+/* Inputs */
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  border: 1px solid #cbd6ee;
+  outline: none;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+/* Focus effect */
+input:focus {
+  border-color: #2f6fed;
+  box-shadow: 0 0 0 2px rgba(47, 111, 237, 0.2);
+}
+
+/* Error state */
+input.ng-invalid.ng-touched {
+  border: 1px solid #e53935;
+  background-color: #fff5f5;
+}
+
+/* Error text */
+div {
+  color: #e53935;
+  font-size: 12px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+/* Button */
+button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #2f6fed, #1a4ed8);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Button hover */
+button:hover {
+  background: linear-gradient(135deg, #1a4ed8, #2f6fed);
+  transform: translateY(-1px);
+}
+
+/* Disabled button */
+button:disabled {
+  background: #a0b4e0;
+  cursor: not-allowed;
+}
+
+/* Optional title */
+form::before {
+  content: "Create Department";
+  display: block;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #1a3c6e;
+  text-align: center;
+}
