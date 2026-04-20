@@ -1,0 +1,19 @@
+<form [formGroup]="departmentForm" (ngSubmit)="onSubmit()">
+
+  <label>Department Name</label>
+  <input type="text" formControlName="name" />
+  <div *ngIf="departmentForm.get('name')?.touched && departmentForm.get('name')?.invalid">
+    Name is required
+  </div>
+
+  <label>Total Participants</label>
+  <input type="number" formControlName="totalParticipants" />
+
+  <label>Max Per Session</label>
+  <input type="number" formControlName="maxPerSession" />
+
+  <button type="submit" [disabled]="departmentForm.invalid">
+    Create Department
+  </button>
+
+</form>
