@@ -10,6 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { divisions, mockParticipants, programs, sessions } from '../../utils/Hard-coded';
 import { assignment } from '../../utils/interface/assignment';
 import { Data } from '../../Services/data.service';
+import { SnackBar } from '../../Services/snack-bar.service';
 
 @Component({
   selector: 'app-assign',
@@ -25,13 +26,14 @@ import { Data } from '../../Services/data.service';
   styleUrl: './assign.css',
 })
 export class Assign implements OnInit {
-  selectDepartment: string = '';
-  selectedProgram: any = null;
-  selectedParticipant: any = null;
-  selectedSession: string = '';
+  selectDepartment!: any;
+  selectedProgram: any;
+  selectedParticipant: any;
+  selectedSession: any;
   ngOnInit(): void {}
   dialogRef = inject(MatDialogRef<Assign>);
   dataServices = inject(Data);
+  snackService = inject(SnackBar);
 
   assignment = signal<assignment>({
     participant_Id: "",
@@ -43,6 +45,7 @@ export class Assign implements OnInit {
   allPrograms = programs;
   programs = signal<any[]>([]);
   participantsDisabled = signal<boolean>(true);
+  errorMessage = signal<string>('');
 
   assignmentForm = form(this.assignment, {});
 
@@ -71,6 +74,7 @@ export class Assign implements OnInit {
   }
 
   onSubmit() {
+    this.errorMessage.set('');
     const payload = {
       participant_id: this.selectedParticipant?.id,
       session_id: this.selectedSession,
@@ -81,7 +85,7 @@ export class Assign implements OnInit {
         this.onClose();
       },
       error: (err: any) => {
-        console.log(err.error);
+        this.errorMessage.set(err.error?.error ?? 'Allocation failed. Please try again.');
       },
     });
   }

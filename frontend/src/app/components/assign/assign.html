@@ -41,6 +41,9 @@
       }
     </mat-select>
   </mat-form-field>
+  @if (errorMessage()) {
+    <div style="color: red; margin: 10px 0;">{{ errorMessage() }}</div>
+  }
   <div class="example-button-row">
     <button matButton="outlined" type="button" (click)="onClose()">Cancel</button>
     <button matButton="tonal" type="submit" [disabled]="assignmentForm().invalid()">Assign Employee</button>

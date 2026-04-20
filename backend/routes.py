@@ -254,3 +254,4 @@ def remove_allocation(session_id, participant_id):
     sessions[session_id]["allocations"].remove(participant_id)
     del participant_session_map[participant_id]
     return jsonify({"message": "Allocation removed successfully"})
+
