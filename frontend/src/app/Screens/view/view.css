@@ -1,0 +1,107 @@
+/* Container */
+.container {
+  padding: 30px;
+  font-family: Arial, sans-serif;
+  background: #f4f8ff;
+  min-height: 100vh;
+}
+
+/* Top bar */
+.top-bar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.create {
+  background: #2f6fed;
+  color: white;
+}
+
+.assign {
+  background: white;
+  color: #2f6fed;
+  border: 2px solid #2f6fed;
+}
+
+/* Title */
+h2 {
+  text-align: center;
+  color: #1a4ed8;
+  margin-bottom: 25px;
+}
+
+/* Program cards */
+.program-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.program-card {
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  border-left: 6px solid #2f6fed;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.program-card h3 {
+  color: #1a3c6e;
+  margin-bottom: 15px;
+}
+
+/* Sessions */
+.session-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+}
+
+.session-card {
+  background: #f9fbff;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #dbe6ff;
+}
+
+.session-card h4 {
+  color: #2f6fed;
+  margin-bottom: 5px;
+}
+
+.time {
+  font-size: 13px;
+  color: #555;
+}
+
+/* Seats */
+.remaining {
+  font-weight: bold;
+  color: #1a4ed8;
+}
+
+/* Participants */
+.participants {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.chip {
+  background: #2f6fed;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 20px;
+  font-size: 12px;
+}
