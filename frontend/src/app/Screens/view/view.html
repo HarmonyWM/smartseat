@@ -13,21 +13,44 @@
 
   </div>
 
-  <h2>Departments Overview</h2>
+  <h2>Training Programs</h2>
 
-  <div class="card-grid">
+  <!-- 🔹 Training Programs -->
+  <div class="program-grid">
 
-    <div class="card" *ngFor="let dept of departments">
+    <div class="program-card" *ngFor="let program of trainingPrograms">
 
-      <h3>{{ dept.name }}</h3>
+      <h3>{{ program.name }}</h3>
 
-      <p><strong>Total Participants:</strong> {{ dept.totalParticipants }}</p>
+      <!-- 🔹 Sessions -->
+      <div class="session-grid">
 
-      <p><strong>Max per Session:</strong> {{ dept.maxPerSession }}</p>
+        <div class="session-card" *ngFor="let session of program.sessions">
 
-      <p class="remaining">
-        Remaining Seats: {{ getRemainingSeats(dept) }}
-      </p>
+          <h4>{{ session.name }}</h4>
+
+          <p class="time">{{ session.time }}</p>
+
+          <p>
+            Capacity: {{ session.participants.length }} / {{ session.capacity }}
+          </p>
+
+          <p class="remaining">
+            Remaining Seats: {{ getRemainingSeats(session) }}
+          </p>
+
+          <!-- 🔹 Participants -->
+          <div class="participants">
+
+            <span *ngFor="let p of session.participants" class="chip">
+              {{ p }}
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
 
     </div>
 

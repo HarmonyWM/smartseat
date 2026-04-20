@@ -1,38 +1,43 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-view',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './view.html',
   styleUrl: './view.css',
 })
 export class View {
 
-  // 🔹 Dummy data (safe for now)
-  departments = [
+  trainingPrograms = [
     {
-      name: 'Division A',
-      totalParticipants: 24,
-      maxPerSession: 8
-    },
-    {
-      name: 'Division B',
-      totalParticipants: 18,
-      maxPerSession: 8
-    },
-    {
-      name: 'Division C',
-      totalParticipants: 18,
-      maxPerSession: 6
+      name: 'Program Name',
+      sessions: [
+        {
+          name: 'Morning Session',
+          time: '09:00 - 10:30',
+          capacity: 20,
+          participants: ['John', 'Sarah', 'Mike', 'Lebo']
+        },
+        {
+          name: 'Midday Session',
+          time: '11:00 - 12:30',
+          capacity: 20,
+          participants: ['Thabo', 'Aisha']
+        },
+        {
+          name: 'Afternoon Session',
+          time: '13:00 - 14:30',
+          capacity: 20,
+          participants: []
+        }
+      ]
     }
   ];
 
-  // 🔹 Business logic
-  getRemainingSeats(dept: any): number {
-    const totalSessions = 3;
-    return (dept.maxPerSession * totalSessions) - dept.totalParticipants;
+  getRemainingSeats(session: any): number {
+    return session.capacity - session.participants.length;
   }
-
 }
